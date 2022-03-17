@@ -141,7 +141,11 @@
 							</div>
 						</div>
 						<div class="nav__menu-content-wrapper">
-							<span class="nav__menu-content-title">Quiz</span>
+							<a href="?quanly=quiz" class="nav__menu-content-item">
+								<span class="nav__menu-content-title">
+								Quiz
+								</span>
+							</a>
 						</div>
 						<div class="nav__menu-content-wrapper">
 							<span class="nav__menu-content-title">Game</span>
@@ -174,6 +178,25 @@
 										include("include/home_forum_topic.php");
 								}else{
 									include("include/home_forum.php");
+								}
+							}else if($quanly == 'quiz'){
+								if(isset($_GET['type'])){
+									$iqsType = $_GET['type'];
+								}else{
+									$iqsType = '';
+								}
+
+								if($iqsType == 'add'){
+									include("include/quiz_add.php");
+								}else if($iqsType == 'sub'){
+									include("include/quiz_sub.php");
+								}else if($iqsType == 'multi'){
+									include("include/quiz_multiply.php");
+								}else if($iqsType == 'divide'){
+									include("include/quiz_divide.php");
+								}else{
+									include("include/quiz_add.php");
+									include("include/quiz_menu.php");
 								}
 							}else{
 								include("include/home_page.php");

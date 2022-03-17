@@ -37,6 +37,9 @@ if(menuModalOverlay){
 }
 
 /*==================== ACCORDION TOPICS ====================*/
+
+
+/*==================== ACCORDION TOPICS ====================*/
 const menuWrapper = document.getElementsByClassName('nav__menu-content-wrapper'),
 	  menuTitles = document.querySelectorAll('.nav__menu-content-title');
 

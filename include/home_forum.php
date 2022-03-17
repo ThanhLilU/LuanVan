@@ -49,18 +49,22 @@
 										$sql_get_userlike_topic = mysqli_query($con, "select count(UserID) AS count from user_like_topic where TopicID = '".$sql_row_topic_list["TopicID"]."'");
 										$sql_row_userlike_topic = mysqli_fetch_array($sql_get_userlike_topic);
 
-										$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$_SESSION['LVLogin']."'");
-										$sql_row_user_id = mysqli_fetch_array($sql_get_user_id);
-
-										$sql_get_user_liked = mysqli_query($con, "select * from user_like_topic where UserID='".$sql_row_user_id["UserID"]."' and TopicID='".$sql_row_topic_list["TopicID"]."'");
-									
+										if(isset($_SESSION['LVLogin'])){
+											$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$_SESSION['LVLogin']."'");
+											$sql_row_user_id = mysqli_fetch_array($sql_get_user_id);
+											$sql_get_user_liked = mysqli_query($con, "select * from user_like_topic where UserID='".$sql_row_user_id["UserID"]."' and TopicID='".$sql_row_topic_list["TopicID"]."'");
 									?>
 									
 									<?php 
-										if($sql_row_user_liked = mysqli_fetch_array($sql_get_user_liked)){
+											if($sql_row_user_liked = mysqli_fetch_array($sql_get_user_liked)){
 									?>
 									<i class="far fa-thumbs-up topic-option-icon icon--liked">
 									<?php 
+											}else{
+												?>
+													<i class="far fa-thumbs-up topic-option-icon icon--like">
+												<?php
+											}
 										}else{
 									?>
 									<i class="far fa-thumbs-up topic-option-icon icon--like">
