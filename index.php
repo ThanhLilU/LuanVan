@@ -195,8 +195,8 @@
 								}else if($iqsType == 'divide'){
 									include("include/quiz_divide.php");
 								}else{
-									include("include/quiz_add.php");
-									include("include/quiz_menu.php");
+									include("include/quiz_home.php");
+									include("include/quiz_ranking.php");
 								}
 							}else{
 								include("include/home_page.php");

@@ -32,7 +32,7 @@
 							$iqsDiff = '';
 						}
 						
-						if($iqsDiff == 'easy'){
+						if($iqsDiff == 'hard'){
 					?>
 					<div class="quiz__answer-list">
 						<input class="quiz__answer--input" type="number">
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<?php
-						}else if($iqsDiff == 'hard'){
+						}else if($iqsDiff == 'easy'){
 					?>
 					<ul class="quiz__answer-list">
 						<li class="quiz__answer--button" id="quiz_option-1">1</li>
@@ -49,6 +49,7 @@
 						<li class="quiz__answer--button" id="quiz_option-3">3</li>
 						<li class="quiz__answer--button" id="quiz_option-4">4</li>
 					</ul>
+					<script src="javascript/quiz_add_sub_easy.js"></script>
 					<?php
 						}
 					?>
@@ -58,4 +59,3 @@
 	</div>
 </div>
 
-<script src="javascript/quiz_add_sub.js"></script>

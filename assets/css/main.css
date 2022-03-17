@@ -177,6 +177,25 @@ input[type=number]{
 }
 
 /*==================== REUSABLE CSS CLASSES ====================*/
+.mb2-separate{
+	border-right: 1px solid #bbb;
+	height: var(--mb-2);
+	align-items: center;
+}
+
+.mb3-separate{
+	border-right: 1px solid #bbb;
+	height: var(--mb-3);
+	align-items: center;
+}
+
+.mb5-separate{
+	border-right: 1px solid #bbb;
+	height: var(--mb-5);
+	align-items: center;
+}
+
+
 .section{
 	padding: 2rem 0 4rem ;
 }
@@ -1129,42 +1148,31 @@ input[type=number]{
 }
 
 /*==================== QUIZ FOR KIDS ====================*/
-.modal__quiz-list{
+.quiz__subtitle{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: var(--big-font-size);
+	font-weight: var(--font-semi-bold);
+	margin-bottom: var(--mb-1);
+}
+
+.quiz__titlelabel{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: var(--normal-font-size);
+	font-weight: var(--font-light-bold);
 	margin-bottom: var(--mb-4);
 }
 
-.modal__quiz-difficult{
-	width: var(--mb-5);
-	height: var(--mb-5);
-	display: flex;
-	align-items: center;
-	font-size: var(--h1-font-size);
-	font-weight: var(--font-semi-bold);
-}
-
-.modal__quiz-item{
-	border: none;
-	background-color: var(--second-color);
-	width: var(--mb-7);
-	height: var(--mb-5);
-	font-size: var(--h2-font-size);
-	border-radius: var(--mb-1);
-}
-
-.modal__quiz-item:hover{
-	background-color: var(--second-color-alt);
-}
-
-.modal__quiz-item-link{
+.quiz__menu-title{
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	color: var(--text-color);
-	font-weight: var(--font-medium);
+	flex-wrap: wrap;
+	font-size: var(--h1-font-size);
+	font-weight: var(--font-semi-bold);
+	margin-bottom: var(--mb-2);
 }
 
 .quiz__container{
@@ -1196,6 +1204,130 @@ input[type=number]{
 
 .quiz__title h1:last-child{
 	color: var(--true-yellow-color);
+}
+
+
+
+.quiz__menu-list{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.quiz__menu--wrapper{
+	border: 1px solid #ccc;
+	margin-bottom: var(--mb-10);
+}
+
+.quiz__menu-item{
+	display: flex;
+	justify-content: center;
+	border: none;
+	width: 100%;
+	margin-bottom: var(--mb-2);
+}
+
+.quiz__menu-item-link{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	color: var(--text-color);
+	font-weight: var(--font-medium);
+	background-color: var(--second-color);
+	width: var(--mb-10);
+	height: var(--mb-5);
+	font-size: var(--h2-font-size);
+	border-radius: var(--mb-1);
+}
+
+.quiz__menu-item-link:hover{
+	background-color: var(--second-color-alt);
+}
+
+.quiz__rank--wrapper{
+	border: 1px solid #ccc;
+	margin-bottom: var(--mb-5);
+	padding-bottom: var(--mb-2);
+}
+
+.quiz__user-rank{
+	display: flex;
+	margin-bottom: var(--mb-1);
+	width: 100%;
+}
+
+.quiz__rank-stt{
+	display: flex;
+	width: 8.3332%;
+	align-items: center;
+}
+
+.quiz__rank-name{
+	display: flex;
+	width: 41.6667%;
+	align-items: center;
+}
+
+.quiz__rank-data{
+	display: flex;
+	width: 16.6667%;
+	align-items: center;
+}
+
+.quiz__rank-title{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: var(--h3-font-size);
+	font-weight: var(--font-semi-bold);
+	margin-bottom: var(--mb-2);
+	width: 100%;
+}
+
+.quiz__rank-list{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: var(--mb-4);
+	width: 100%;
+}
+
+.quiz__rank-item{
+	display: flex;
+	justify-content: center;
+	border: none;
+	width: 100%;
+	margin-bottom: var(--mb-2);
+}
+
+.quiz__rank-label{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-size: var(--normal-font-size);
+}
+
+.rank-first{
+	color: var(--true-yellow-color);
+	font-size: var(--h2-font-size);
+	font-weight: var(--font-semi-bold);
+}
+
+.rank-second{
+	color: var(--true-red-color);
+	font-size: var(--h2-font-size);
+	font-weight: var(--font-semi-bold);
+}
+
+.rank-third{
+	color: var(--true-turquoise-color);
+	font-size: var(--h2-font-size);
+	font-weight: var(--font-semi-bold);
+}
+
+.quiz__rank-name .quiz__rank-label{
+	justify-content: left;
 }
 
 .quiz__time{
