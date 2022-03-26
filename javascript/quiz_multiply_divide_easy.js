@@ -5,11 +5,19 @@ const option1 = document.getElementById("quiz_option-1"),
 const mark = document.getElementById("quiz_mark");
 const right = document.getElementById("quiz_count-right"),
 	  total = document.getElementById("quiz_count-total");
+let pracVar = true;
+let resetTimer = true;
 
 let rightCount = 0;
 let totalCount = 0;
 let rightAnswer = 0;
 let timeOut;
+let wrongStreak = 0;
+
+let timeCounter = 0;
+const timerMs = setInterval(() => {
+	timeCounter += 1;
+}, 100);
 
 function reset_timerBar(){
 	var timerInner = document.getElementById("timer-bar--inner");
@@ -20,7 +28,61 @@ function reset_timerBar(){
 	clearTimeout(timeOut);
 }
 
-function generate_equation(){
+function endUp(){
+	clearInterval(timerMs);
+	let user = prompt("Kết quả lần này của bạn là:\nTổng: " + totalCount + " câu\nĐúng: " + rightCount + " câu\nBạn đã hoàn thành xuất sắc, hãy chia sẻ thành tích của bạn lên bảng xếp hạng nhé", "Anonymous");
+		
+	if(user){
+		var ajax = new XMLHttpRequest();
+		var method = "GET";
+		var url = "ajax/addQuizResult.php?prac="+pracVar+"&user_name="+user+"&right_answer="+rightCount+"&total_count="+totalCount+"&time="+timeCounter;
+		var asynchronous = true;
+
+		ajax.open(method, url, asynchronous);
+
+		ajax.send();
+
+		ajax.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var response = this.responseText;
+				// alert(response);
+				if(response !== "true"){
+					alert('Đã xảy ra lỗi!');
+				}
+			}
+		}
+	}
+	window.location = "?quanly=quiz";
+}
+
+function resetEquation(right){
+	if(right){
+		generate_equation(pracVar);
+	}else{
+		if(pracVar){
+			alert("Bạn đã sai, kết quả là: " + rightAnswer);
+			generate_equation(pracVar);
+		}else{
+			generate_equation(pracVar);
+		}
+	}
+}
+
+function generate_equation(prac){
+	pracVar = prac;
+
+	if(resetTimer){
+		document.getElementById("timer-bar").style.setProperty("--duration", 10);
+		reset_timerBar();
+		timeOut = setTimeout(generate_equation, 10000, pracVar);
+		if(!pracVar){
+			resetTimer = false;
+			document.getElementById("timer-bar").style.setProperty("--duration", 300);
+			reset_timerBar();
+			timeOut = setTimeout(endUp, 300000);
+		}
+	}
+
 	var num1 = Math.floor(Math.random() * (40)) + 10;
 	var num2 = (Math.floor(Math.random() * (21)) + 1)*5;
 
@@ -93,59 +155,61 @@ function generate_equation(){
 	option3.innerHTML = switchAnswers[2];
 	option4.innerHTML = switchAnswers[3];
 
-	right.innerHTML = rightCount;
-	total.innerHTML = totalCount;
-	totalCount++;
+	if(pracVar){
+		right.innerHTML = rightCount;
+		total.innerHTML = totalCount;
+	}else{
+		if(wrongStreak == 5){
+			alert("Bạn đã bị loại vì sai 5 lần liên tiếp!");
+			window.location = "?quanly=quiz";
+		}
+		right.innerHTML = "...";
+		total.innerHTML = totalCount;
+	}
 
-	document.getElementById("timer-bar").style.setProperty("--duration", 10);
-	reset_timerBar();
-	timeOut = setTimeout(generate_equation, 10000);
+	if(pracVar && totalCount == 30){
+		endUp();
+	}
+	wrongStreak++;
+	totalCount++;
 }
 
 option1.addEventListener('click', ()=>{
-	reset_timerBar();
-
 	if(option1.innerHTML == rightAnswer){
 		rightCount++;
-		generate_equation();
+		wrongStreak = 0;
+		resetEquation(true);
 	}else{
-		alert("Bạn đã sai, kết quả là: " + rightAnswer);
-		generate_equation();
+		resetEquation(false);
 	}
 });
 
 option2.addEventListener('click', ()=>{
-	reset_timerBar();
-
 	if(option2.innerHTML == rightAnswer){
 		rightCount++;
-		generate_equation();
+		wrongStreak = 0;
+		resetEquation(true);
 	}else{
-		alert("Bạn đã sai, kết quả là: " + rightAnswer);
-		generate_equation();
+		resetEquation(false);
 	}
 });
 
 option3.addEventListener('click', ()=>{
-	reset_timerBar();
-
 	if(option3.innerHTML == rightAnswer){
 		rightCount++;
-		generate_equation();
+		wrongStreak = 0;
+		resetEquation(true);
 	}else{
-		alert("Bạn đã sai, kết quả là: " + rightAnswer);
-		generate_equation();
+		resetEquation(false);
 	}
 });
 
 option4.addEventListener('click', ()=>{
-	reset_timerBar();
-
 	if(option4.innerHTML == rightAnswer){
 		rightCount++;
-		generate_equation();
+		wrongStreak = 0;
+		resetEquation(true);
 	}else{
-		alert("Bạn đã sai, kết quả là: " + rightAnswer);
-		generate_equation();
+		resetEquation(false);
 	}
 });

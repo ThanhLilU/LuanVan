@@ -71,22 +71,22 @@
 							<span class="user_name" id="userName"><?php echo $_SESSION['LVLogin'] ?></span>
 							<ul class="nav__user-menu-list">
 								<li class="nav__user-menu-option">
-									<a class="" href="">
+									<a class="" href="?quanly=user&info=1">
 										Tài khoản của tôi
 									</a>
 								</li>
 								<li class="nav__user-menu-option">
-									<a class="" href="">
+									<a class="" href="?quanly=user&info=2">
 										Danh sách bài đăng
 									</a>
 								</li>
 								<li class="nav__user-menu-option">
-									<a class="" href="">
+									<a class="" href="?quanly=user&info=3">
 										Bài viết yêu thích
 									</a>
 								</li>
 								<li class="nav__user-menu-option">
-									<a class="" href="">
+									<a class="" href="?quanly=user&info=4">
 										Bình luận của bạn
 									</a>
 								</li>
@@ -148,7 +148,10 @@
 							</a>
 						</div>
 						<div class="nav__menu-content-wrapper">
-							<span class="nav__menu-content-title">Game</span>
+							<a href="?quanly=game" class="nav__menu-content-item">
+								<span class="nav__menu-content-title">Game</span>
+							</a>
+							
 						</div>
 						<div class="nav__menu-content-wrapper">
 							<span class="nav__menu-content-title">Other</span>
@@ -198,20 +201,29 @@
 									include("include/quiz_home.php");
 									include("include/quiz_ranking.php");
 								}
+							}else if($quanly == 'user'){
+								include("include/user_home.php");
+							}else if($quanly == 'game'){
+
+								if(isset($_GET['id'])){
+									$gameId = $_GET['id'];
+								}else{
+									$gameId = '';
+								}
+								if($gameId){
+									if($gameId == "1"){
+										include("game/Snake/index.php");
+									}else if($gameId == "2"){
+										include("game/FlappyBird/index.php");
+									}
+								}else{
+									include("include/game_index.php");
+									include("include/game_ranking.php");
+								}
 							}else{
 								include("include/home_page.php");
 							}
 							
-						?>
-
-						<!--==================== HOME PAGE ====================-->
-						<?php
-							// include("include/home_page.php");
-						?>
-
-						<!--==================== CONTENT DETAIL ====================-->
-						<?php
-							// include("include/home_content_detail.php");
 						?>
 						
 					</div>
@@ -323,6 +335,10 @@
 				echo '<script> showLoginForm() </script>';
 			}else if(isset($_GET['status']) && $_GET['status']=='register'){
 				echo '<script> showRegisterForm() </script>';
+			}
+
+			if($quanly == 'game'){
+				echo '<script> changeGameBackGround() </script>';
 			}
 		?>
 	</body>

@@ -10,7 +10,6 @@ function changeTheme(){
 	homeLogoLink.classList.toggle("nav__logo-link-active");
 	btnChange.classList.toggle("change-time--active");
 	bodyChange[0].classList.toggle("dark-theme");
-	
 }
 
 /*==================== SHOW MODAL MENU LIST ====================*/
@@ -489,4 +488,37 @@ function toggleTopicLike(cmtID, status){
 			}
 		}
 	}
+}
+
+/*==================== QUIZ RANKING ====================*/
+const quizPracStt = document.getElementsByClassName("quiz__prac-stt");
+const quizTestStt = document.getElementsByClassName("quiz__test-stt");
+
+if(quizPracStt[0]){
+	quizPracStt[0].classList.add("rank-first");
+}
+if(quizPracStt[1]){
+	quizPracStt[1].classList.add("rank-second");	
+}
+if(quizPracStt[2]){
+	quizPracStt[2].classList.add("rank-third");	
+}
+
+
+if(quizTestStt[0]){
+	quizTestStt[0].classList.add("rank-first");	
+}
+if(quizTestStt[1]){
+	quizTestStt[1].classList.add("rank-second");	
+}
+if(quizTestStt[2]){
+	quizTestStt[2].classList.add("rank-third");	
+}
+
+/*==================== GAME PAGE ====================*/
+const gameMain = document.getElementsByClassName("main");
+
+function changeGameBackGround(){
+	gameMain[0].style.backgroundImage = "url('https://i.imgur.com/iu677os.jpg')";
+	gameMain[0].style.backgroundSize = "auto 100%";
 }

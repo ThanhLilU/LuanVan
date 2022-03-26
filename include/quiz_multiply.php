@@ -35,11 +35,12 @@
 						if($iqsDiff == 'hard'){
 					?>
 					<div class="quiz__answer-list">
-						<input class="quiz__answer--input" type="number">
-						<div class="quiz__answer--button">
+						<input class="quiz__answer--input" type="number" id="quiz_answer-input">
+						<div class="quiz__answer--button" id="quiz_answer-button">
 							Xác nhận
 						</div>
 					</div>
+					<script src="javascript/quiz_multiply_divide_hard.js"></script>
 					<?php
 						}else if($iqsDiff == 'easy'){
 					?>
@@ -53,6 +54,19 @@
 					<?php
 						}
 					?>
+
+					<?php
+						if(isset($_GET['prac'])){
+							$iqsPrac = $_GET['prac'];
+						}else{
+							$iqsPrac = '';
+						}
+
+						if($iqsPrac != '')
+					?>
+					<script>
+						generate_equation(<?php echo $iqsPrac ?>);
+					</script>
 				</div>
 			</div>
 		</div>

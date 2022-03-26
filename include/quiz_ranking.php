@@ -24,209 +24,42 @@
 						<div class="quiz__rank-name">
 							<span class="quiz__rank-title mb3-separate">Tên</span>
 						</div>
-						<div class="quiz__rank-data">
+						<div class="quiz__rank-right">
 							<span class="quiz__rank-title mb3-separate">Đúng</span>
 						</div>
-						<div class="quiz__rank-data">
-							<span class="quiz__rank-title mb3-separate">Tổng</span>
-						</div>
-						<div class="quiz__rank-data">
-							<span class="quiz__rank-title">%</span>
+						<div class="quiz__rank-other">
+							<span class="quiz__rank-title">Thời gian</span>
 						</div>
 					</div>
 				</div>
 				<div class="grid__column-12">
+					<?php
+						$sql_get_prac_list = mysqli_query($con, "select * from quiz_rank_prac order by RightAnswer DESC, QuizTime ASC limit 10");
+
+						$stt = 0;
+						while ($sql_row_prac_list = mysqli_fetch_array($sql_get_prac_list)) {
+							$stt++;
+					?>
 					<div class="grid__row">
 						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-first">1</span>
+							<div class="quiz__rank-stt quiz__prac-stt">
+								<span class="quiz__rank-label"><?php echo $stt ?></span>
 							</div>
 							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
+								<span class="quiz__rank-label"><?php echo $sql_row_prac_list["UserName"] ?></span>
 							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
+							<div class="quiz__rank-right">
+								<span class="quiz__rank-label"><?php echo $sql_row_prac_list["RightAnswer"] ?></span>
 							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">100%</span>
+							<div class="quiz__rank-other">
+								<span class="quiz__rank-label"><?php echo $sql_row_prac_list["QuizTime"]/10 ?> s</span>
 							</div>
 						</div>
 					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-second">2</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">25</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">83.3%</span>
-							</div>
-						</div>
-						
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-third">3</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">4</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">5</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">6</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">7</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">8</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">9</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
+					<?php
+						}
+					?>
+					
 					<div class="grid__row">
 						<div class="quiz__user-rank">
 							<div class="quiz__rank-stt">
@@ -249,209 +82,42 @@
 						<div class="quiz__rank-name">
 							<span class="quiz__rank-title mb3-separate">Tên</span>
 						</div>
-						<div class="quiz__rank-data">
+						<div class="quiz__rank-right">
 							<span class="quiz__rank-title mb3-separate">Đúng</span>
 						</div>
-						<div class="quiz__rank-data">
-							<span class="quiz__rank-title mb3-separate">Tổng</span>
-						</div>
-						<div class="quiz__rank-data">
-							<span class="quiz__rank-title">%</span>
+						<div class="quiz__rank-other">
+							<span class="quiz__rank-title">Tổng</span>
 						</div>
 					</div>
 				</div>
 				<div class="grid__column-12">
+					<?php
+						$sql_get_test_list = mysqli_query($con, "select * from quiz_rank_test order by RightAnswer DESC, TotalCount ASC limit 10");
+
+						$stt = 0;
+						while ($sql_row_test_list = mysqli_fetch_array($sql_get_test_list)) {
+							$stt++;
+					?>
 					<div class="grid__row">
 						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-first">1</span>
+							<div class="quiz__rank-stt quiz__test-stt">
+								<span class="quiz__rank-label"><?php echo $stt ?></span>
 							</div>
 							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
+								<span class="quiz__rank-label"><?php echo $sql_row_test_list["UserName"] ?></span>
 							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
+							<div class="quiz__rank-right">
+								<span class="quiz__rank-label"><?php echo $sql_row_test_list["RightAnswer"] ?></span>
 							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">100%</span>
+							<div class="quiz__rank-other">
+								<span class="quiz__rank-label"><?php echo $sql_row_test_list["TotalCount"] ?></span>
 							</div>
 						</div>
 					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-second">2</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">25</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">83.3%</span>
-							</div>
-						</div>
-						
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label rank-third">3</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">4</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">5</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">6</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">7</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">8</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">9</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
-					<div class="grid__row">
-						<div class="quiz__user-rank">
-							<div class="quiz__rank-stt">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-name">
-								<span class="quiz__rank-label">Nguyễn Đình Thanh</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">10</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">30</span>
-							</div>
-							<div class="quiz__rank-data">
-								<span class="quiz__rank-label">33.3%</span>
-							</div>
-						</div>
-					</div>
+					<?php
+						}
+					?>
+					
 					<div class="grid__row">
 						<div class="quiz__user-rank">
 							<div class="quiz__rank-stt">
