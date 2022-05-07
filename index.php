@@ -46,14 +46,16 @@
 		<header class="header" id="header">
 			<nav class="nav container">
 				<div class="nav__logo">
-					<img src="assets/img/logo-ori-1-rmbg.jpg" alt="" class="nav__logo-img logo--active">
-					<img src="assets/img/logo-ori-3-rmbg.jpg" alt="" class="nav__logo-img">
+					<a href="index.php">
+						<img src="assets/img/logo-ori-1-rmbg.jpg" alt="" class="nav__logo-img logo--active">
+						<img src="assets/img/logo-ori-3-rmbg.jpg" alt="" class="nav__logo-img">
+					</a>
 					<a href="index.php" class="nav__logo-link" id="nav__logo-link"><span>BeUMathematics</span></a>
 				</div>
 
 				<div class="nav__btns">
 					<button type="button" class="btn-round btn-switch change-time" id="theme-button" onclick="changeTheme()"><span></span></button>
-					<div class="nav__toggle" id="nav--toggle">
+					<div class="nav__toggle menu-modal--responsive" id="nav--toggle">
 						<i class="fas fa-ellipsis-h nav__toggle-icon"></i>
 					</div>
 				</div>
@@ -61,7 +63,7 @@
 		</header>
 		<div class="modal modal-active" id="modal-menu">
 			<div class="modal__overlay modal__overlay--active" id="modal-overlay-menu"></div>
-			<div class="modal__body modal-right modal__movingRL">
+			<div class="modal__body modal-right modal__movingRL menu__modal--responsive">
 				<div class="nav__menu-list" id="nav-menu">
 					<div class="nav__menu">
 						<?php
@@ -113,7 +115,7 @@
 					<div class="nav__menu-content">
 						<div class="nav__menu-content-wrapper nav-item--close">
 							<span class="nav__menu-content-title">
-								Mathematics
+								Toán Học
 								<i class="fas fa-arrow-down nav__menu-content-icon"></i>
 							</span>
 							<div class="nav__menu-content-items">
@@ -128,7 +130,7 @@
 						
 						<div class="nav__menu-content-wrapper nav-item--close">
 							<span class="nav__menu-content-title">
-								Forum
+								Diễn đàn
 								<i class="fas fa-arrow-down nav__menu-content-icon"></i>
 							</span>
 							<div class="nav__menu-content-items">
@@ -143,13 +145,13 @@
 						<div class="nav__menu-content-wrapper">
 							<a href="?quanly=quiz" class="nav__menu-content-item">
 								<span class="nav__menu-content-title">
-								Quiz
+								Đố nhanh
 								</span>
 							</a>
 						</div>
 						<div class="nav__menu-content-wrapper">
 							<a href="?quanly=game" class="nav__menu-content-item">
-								<span class="nav__menu-content-title">Game</span>
+								<span class="nav__menu-content-title">Trò chơi</span>
 							</a>
 							
 						</div>
@@ -170,6 +172,8 @@
 					<div class="grid__column-12">
 
 						<?php
+							$gameId = "";
+							$quanly = "";
 							if(isset($_GET['quanly'])){
 								$quanly = $_GET['quanly'];
 							}else{
@@ -215,20 +219,51 @@
 										include("game/Snake/index.php");
 									}else if($gameId == "2"){
 										include("game/FlappyBird/index.php");
+									}else if($gameId == "3"){
+										include("game/PiintheSky/index.php");
 									}
 								}else{
 									include("include/game_index.php");
 									include("include/game_ranking.php");
 								}
+							}else if(isset($_GET['beutopic'])){
+								include("include/home_content_detail.php");
 							}else{
 								include("include/home_page.php");
 							}
 							
 						?>
-						
 					</div>
+
 				</div>
 			</section>
+			<?php
+				if($quanly !== 'game' && !$gameId){
+			?>
+			<section>
+				<div class="footer__quotes">
+					<h1 class="footer__quotes-header">Toán học không nhàm chán:</h1>
+					<p>
+					<?php
+						$sql_get_beu_quotes_total = mysqli_query($con, "select * from beuquotes");
+						while($sql_row_beu_quotes_total = mysqli_fetch_array($sql_get_beu_quotes_total)){
+							$list_quotes[] = $sql_row_beu_quotes_total;
+						}
+
+						$random_quotes = rand(1,  count($list_quotes));
+
+						$sql_get_beu_quotes = mysqli_query($con, "select * from beuquotes where ID = '".$random_quotes."'");
+						$sql_row_beu_quotes = mysqli_fetch_array($sql_get_beu_quotes);
+
+						echo $sql_row_beu_quotes["Content"];
+					?>
+					</p>
+					
+				</div>
+			</section>
+			<?php
+				}
+			?>
 		</main>
 
 		<!--==================== FOOTER ====================-->
@@ -240,7 +275,7 @@
 						<span class="footer__subtilte">Software Developer</span>
 					</div>
 
-					<ul class="footer__links">
+					<!-- <ul class="footer__links">
 						<li>
 							<a href="#services" class="footer__link">Services</a>
 						</li>
@@ -250,7 +285,7 @@
 						<li>
 							<a href="#contact" class="footer__link">Contact Me</a>
 						</li>
-					</ul>
+					</ul> -->
 
 					<ul class="footer__socials">
 						<li class="footer__social">
@@ -332,13 +367,25 @@
 
 		<?php
 			if(isset($_GET['status']) && $_GET['status']=='login'){
-				echo '<script> showLoginForm() </script>';
+				if(isset($_SESSION['LVLogin'])){
+					echo '<script> window.location.href = "./index.php"; </script>';
+				}else{
+					echo '<script> showLoginForm() </script>';
+				}
 			}else if(isset($_GET['status']) && $_GET['status']=='register'){
-				echo '<script> showRegisterForm() </script>';
+				if(isset($_SESSION['LVLogin'])){
+					echo '<script> window.location.href = "./index.php"; </script>';
+				}else{
+					echo '<script> showRegisterForm() </script>';
+				}
 			}
 
 			if($quanly == 'game'){
 				echo '<script> changeGameBackGround() </script>';
+			}
+
+			if(isset($_GET['topic_id'])){
+				echo '<script> activeIncrease(); </script>';
 			}
 		?>
 	</body>

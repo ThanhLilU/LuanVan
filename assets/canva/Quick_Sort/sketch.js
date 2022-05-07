@@ -1,19 +1,32 @@
 let canva;
 
 let values;
-let weight = 2;
+let weight = 3;
+let frame = 0;
+let oldPivot = 0;
+let checkPivot = 0;
 
 let pivotIndex;
 
 // Inspired by Visualizing Algorithms
 
 function setup(){
-	canva = createCanvas(1020, 540);
-	values = new Array(width/weight);
+	var canvaWrapper = document.getElementById('canva-wrapper');
+	canva = createCanvas(canvaWrapper.offsetWidth, 540);
+	var canvaChild = document.getElementById('defaultCanvas0');
+	canvaWrapper.appendChild(canvaChild);
+
+	values = new Array(floor(width/weight));
 	strokeWeight(weight);
 	for(let i=0; i<values.length; i++){
 		values[i] = random(height);
 	}
+
+	canva.style('left', 'calc(50% - ' + width/2 + 'px)');
+
+	canvaWrapper.style.height = height + 2 + 'px';
+
+	frameRate(60);
 
 	quickSort(values, 0, values.length-1);
 }
@@ -55,6 +68,15 @@ function draw(){
 		strokeWeight(weight);
 		line(z*weight, height, z*weight, height-values[z]);
 	}
+
+	if(oldPivot == pivotIndex){
+		checkPivot++;
+		if(checkPivot == 10){
+			noLoop();
+		}
+	}
+
+	oldPivot = pivotIndex;
 }
 
 async function swap(arr, a, b){

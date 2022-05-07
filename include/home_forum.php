@@ -6,6 +6,13 @@
 		$danhmuc = '';
 		$sql_get_topic_category = mysqli_query($con, "select * from topic_category");
 	}
+
+	if(isset($_GET['search'])){
+		$search = str_replace('%20', ' ', $_GET['search']);
+		$sql_get_topic_category = mysqli_query($con, "select c.CategoryID, c.CategoryName from topic_category c, topic t WHERE t.TopicName like '%".$search."%' and c.CategoryID = t.CategoryID");
+	}else{
+		$search = "";
+	}
 ?>
 
 <div class="home_forum">
@@ -18,12 +25,22 @@
 		</div>
 	</div>
 	<div class="grid__row">
-		<div class="grid__column-12">
+		<?php
+			include("include/home_menu.php");
+		?>
+		<div class="grid__column-9 content--responsive" id="forum-content-wrapper">
+
+			<?php
+				include("include/search_engine.php");
+			?>
 
 			<!--=============== TOPIC 1 ===============-->
 			<?php
 				while($sql_row_topic_category = mysqli_fetch_array($sql_get_topic_category)){
 					$sql_get_topic_list = mysqli_query($con, "select * from topic where CategoryID = '".$sql_row_topic_category["CategoryID"]."'");
+					if(isset($_GET['search'])){
+						$sql_get_topic_list = mysqli_query($con, "select * from topic where CategoryID = '".$sql_row_topic_category["CategoryID"]."' and TopicName like '%".$search."%' GROUP BY TopicID");
+					}
 			?>
 			<div class="forum__topics topics__close">
 				<div class="forum__topics_header">

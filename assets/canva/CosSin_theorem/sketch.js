@@ -1,9 +1,20 @@
-let canva;
+let canvaCosin;
 
 // Inspired by Visualizing Algorithms
 
 function setup(){
-	canva = createCanvas(500, 500, WEBGL);
+	var canvaWrapper = document.getElementById('canva-wrapper');
+	canvaCosin = createCanvas(500, 500, WEBGL);
+
+	var canvaChild = document.getElementById('defaultCanvas0');
+	canvaWrapper.appendChild(canvaChild);
+
+	canvaCosin.style('left', 'calc(50% - ' + width/2 + 'px)');
+
+	canvaWrapper.style.height = height + 2 + 'px';
+	canvaWrapper.style.width = width + 2 + 'px';
+	canvaWrapper.style.position = 'relative';
+	canvaWrapper.style.left = 'calc(50% - ' + width/2 + 'px)';
 
 	background(250);
 	translate(-250, -250);
@@ -14,40 +25,58 @@ function setup(){
 
 
 	div = createDiv('A');
-	div.position(10, 395);
+	div.position(5, 380);
 	div.style('font-size', '30px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('B');
-	div.position(200, 75);
+	div.position(191, 63);
 	div.style('font-size', '30px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('C');
-	div.position(485, 395);
+	div.position(475, 380);
 	div.style('font-size', '30px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('a');
-	div.position(360, 240);
+	div.position(345, 230);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('b');
-	div.position(250, 410);
+	div.position(235, 400);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('c');
-	div.position(90, 240);
+	div.position(90, 230);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('x');
-	div.position(190, 240);
+	div.position(185, 230);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('m');
-	div.position(115, 380);
+	div.position(115, 365);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	div = createDiv('n');
-	div.position(330, 380);
+	div.position(330, 365);
 	div.style('font-size', '25px');
+	div.style('width', 'fit-content');
+	div.parent(canvaWrapper);
 
 	noLoop();
 }

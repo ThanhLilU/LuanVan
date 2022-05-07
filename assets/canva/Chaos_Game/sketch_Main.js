@@ -1,9 +1,18 @@
 let points;
+let canva;
 
 // Inspired by Maxin
 
 function setup(){
-	createCanvas(540, 540);
+	canva = createCanvas(540, 540);
+	// var canvaWrapper = document.getElementById('canva-wrapper');
+	// var canvaChild = document.getElementById('defaultCanvas0');
+	// canvaWrapper.appendChild(canvaChild);
+
+	// canva.style('left', 'calc(50% - ' + width/2 + 'px)');
+
+	// canvaWrapper.style.height = height + 2 + 'px';
+	
 	colorMode(HSL, 1);
 }
 

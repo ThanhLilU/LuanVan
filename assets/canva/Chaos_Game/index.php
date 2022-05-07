@@ -5,6 +5,6 @@
 		<script src="../libraries/p5.sound.js"></script>
 	</head>
 	<body>
-		<script src="sketch_5-6-7.js"></script>
+		<script src="sketch_Main.js"></script>
 	</body>
 </html>

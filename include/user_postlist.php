@@ -2,6 +2,7 @@
 	$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName='".$_SESSION['LVLogin']."'");
 	$row_get_user_id = mysqli_fetch_array($sql_get_user_id);
 	$user_id = $row_get_user_id["UserID"];
+	$header = "";
 ?>
 
 <div class="grid__column-9-5">
@@ -26,7 +27,7 @@
 				}else if($info == '3'){
 					$get_topic_list = "select t.TopicID, t.TopicName, t.CategoryID, t.UserID, t.Content, t.AskedDate, t.Viewed from topic t, user u, user_like_topic l where u.UserID='".$user_id."' and u.UserID=l.UserID and l.TopicID=t.TopicID and CategoryID = '".$sql_row_topic_category["CategoryID"]."'";
 				}else if($info == '4'){
-					$get_topic_list = "select t.TopicID, t.TopicName, t.CategoryID, t.UserID, t.Content, t.AskedDate, t.Viewed from topic t, user u, topic_comment c where u.UserID='".$user_id."' and u.UserID=c.UserID and c.TopicID=t.TopicID and CategoryID = '".$sql_row_topic_category["CategoryID"]."'";
+					$get_topic_list = "select t.TopicID, t.TopicName, t.CategoryID, t.UserID, t.Content, t.AskedDate, t.Viewed from topic t, user u, topic_comment c where u.UserID='".$user_id."' and u.UserID=c.UserID and c.TopicID=t.TopicID and CategoryID = '".$sql_row_topic_category["CategoryID"]."' GROUP BY c.TopicID";
 				}
 			}
 			$test_topic_list = $get_topic_list;

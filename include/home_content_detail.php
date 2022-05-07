@@ -1,51 +1,57 @@
+<?php
+	if(isset($_GET['beutopic'])){
+		$beutopic = $_GET['beutopic'];
+	}else{
+		$beutopic = '';
+	}
+	$sql_get_beutopic = mysqli_query($con, "SELECT * from beutopic where TopicID = '$beutopic'");
+	$row_get_beutopic = mysqli_fetch_array($sql_get_beutopic);
+?>
+
 <div class="home__detail">
 	<div class="grid__row">
 
 		<!--=============== TITLE ===============-->
 		<div class="grid__column-12">
 			<h1 class="home__detail-title">
-				Số PI và những điều bạn có thể chưa biết
+				<?php echo $row_get_beutopic['TopicTitle'] ?>
 			</h1>
 		</div>
 
 		<!--=============== SUB-TITLE ===============-->
 		<div class="grid__column-12">
-			<h2 class="home__detail-subtitle">
-				Số PI là một trong những con số nổi tiếng và kỳ diệu nhất trong Toán học, số PI được ứng dụng trong rất nhiều lĩnh vực, công thức cũng như định nghĩa. Bài viết sau sẽ giúp bạn một phần nào có thể hiểu sự kỳ diệu của số PI, con số của vũ trụ!
-			</h2>
+			<div class="home__detail-subtitle">
+				<p>
+					<?php echo $row_get_beutopic['TopicSubTitle'] ?>
+				</p>
+			</div>
 		</div>
 
 		<!--=============== CANVA ===============-->
 		<div class="grid__column-12">
-			<h1 class="home__detail-canva">
-				<script src="assets/canva/Pi_Collisions/sketch.js"></script>
-				<script src="assets/canva/Pi_Collisions/block.js"></script>
-			</h1>
+			<div class="home__detail-canva" id="canva-wrapper">
+				<?php
+					$sql_get_beutopic_includes = mysqli_query($con, "SELECT * from beutopicinclude where TopicID='".$row_get_beutopic['TopicID']."'");
+					while($row_get_beutopic_includes = mysqli_fetch_array($sql_get_beutopic_includes)){
+				?>
+				<script src="<?php echo $row_get_beutopic_includes["IncludeLink"] ?>"></script>
+				<?php
+					}
+				?>
+			</div>
 		</div>
 
 		<!--=============== CONTENT ===============-->
 		<div class="grid__column-12">
-			<p class="home__detail-content">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt dicta laboriosam hic, itaque cupiditate reiciendis asperiores illum perspiciatis officia molestiae. Earum asperiores magni ut repellendus totam qui commodi architecto rerum?
-			</p>
-			
-			<p class="home__detail-content">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt dicta laboriosam hic, itaque cupiditate reiciendis asperiores illum perspiciatis officia molestiae. Earum asperiores magni ut repellendus totam qui commodi architecto rerum?
-			</p>
-
-			<p class="home__detail-content">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt dicta laboriosam hic, itaque cupiditate reiciendis asperiores illum perspiciatis officia molestiae. Earum asperiores magni ut repellendus totam qui commodi architecto rerum?
-			</p>
-
-			<p class="home__detail-content">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt dicta laboriosam hic, itaque cupiditate reiciendis asperiores illum perspiciatis officia molestiae. Earum asperiores magni ut repellendus totam qui commodi architecto rerum?
-			</p>
+			<div class="home__detail-content">
+				<p><?php echo $row_get_beutopic['TopicContent'] ?></p>
+			</div>
 		</div>
 
 		<!--=============== AUTHOR ===============-->
 		<div class="grid__column-12">
 			<span class="home__detail-author">
-				Nguyễn Đình Thanh
+				<?php echo $row_get_beutopic['TopicAuthor'] ?>
 			</span>
 		</div>
 	</div>

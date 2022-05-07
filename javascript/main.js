@@ -1,3 +1,10 @@
+const test_user_name = document.getElementById("userName");
+if(test_user_name){
+	user_name = document.getElementById("userName").innerHTML;
+}else{
+	user_name = "";
+}
+
 function changeTheme(){
 	var homeLogo = document.getElementsByClassName("nav__logo-img"),
 		homeLogoLink = document.getElementById("nav__logo-link"),
@@ -58,6 +65,8 @@ menuTitles.forEach((el) =>{
 /*==================== SHOW MODAL REGISTER/LOGIN ====================*/
 const loginToggle = document.getElementById("navLogin"),
 	  registerToggle = document.getElementById("navRegister"),
+	  loginToggle2 = document.getElementsByClassName("nav__menu-login"),
+	  registerToggle2 = document.getElementsByClassName("nav__menu-register"),
 	  modalLogin = document.getElementById("modalLogin"),
 	  modalRegister = document.getElementById("modalRegister"),
 	  modalBack = document.getElementById("modal--back"),
@@ -67,6 +76,46 @@ const loginToggle = document.getElementById("navLogin"),
 	  btnModalRegister = document.getElementById("btnRegister");
 
 	/*========== LOGIN FORM SHOW ==========*/
+document.querySelectorAll('.nav__menu-login').forEach(item => {
+  	item.addEventListener('click', ()=> {
+    	modalActive = document.getElementsByClassName("modal__content--active");
+		if(modalActive){
+			for(let i=0; i<modalActive.length; i++){
+				modalActive[i].classList.remove("modal__content--active");
+			}
+		}
+		if(btnModalActived = document.getElementsByClassName("buttonModal--active")){
+			for(let i=0; i<btnModalActived.length; i++){
+				btnModalActived[i].classList.remove("buttonModal--active");
+			}
+		}
+		modalLogin.classList.add("modal__content--active");
+		modalContainer.classList.add("modal--active");
+		modalOverlay.classList.add("modal__overlay--active");
+		btnModalLogin.classList.add("buttonModal--active");
+  	})
+})
+
+document.querySelectorAll('.nav__menu-register').forEach(item => {
+  	item.addEventListener('click', ()=> {
+    	modalActive = document.getElementsByClassName("modal__content--active");
+		if(modalActive){
+			for(let i=0; i<modalActive.length; i++){
+				modalActive[i].classList.remove("modal__content--active");
+			}
+		}
+		if(btnModalActived = document.getElementsByClassName("buttonModal--active")){
+			for(let i=0; i<btnModalActived.length; i++){
+				btnModalActived[i].classList.remove("buttonModal--active");
+			}
+		}
+		modalRegister.classList.add("modal__content--active");
+		modalContainer.classList.add("modal--active");
+		modalOverlay.classList.add("modal__overlay--active");
+		btnModalRegister.classList.add("buttonModal--active");
+  	})
+})
+
 if(loginToggle){
 	loginToggle.addEventListener('click', ()=>{
 		modalActive = document.getElementsByClassName("modal__content--active");
@@ -159,9 +208,9 @@ function login(){
 		if(this.readyState == 4 && this.status == 200){
 			var response = this.responseText;
 			// alert(response);
-			if(response !== "false"){
+			if(response !== "false" && response !== ""){
 				alert('Đăng nhập thành công, chào mừng ' + response + ' !');
-				location.reload();
+				window.location.href = "./index.php";
 			}else{
 				alert('Sai tài khoản hoặc mật khẩu, vui lòng thử lại');
 				window.location.href = "./index.php?status=login";
@@ -206,10 +255,10 @@ function register(){
 						// alert(response);
 						if(response !== "false"){
 							alert('Tạo tài khoản thành công, chào mừng ' + response + ' !');
-							location.reload();
+							window.location.href = "index.php";
 						}else{
 							alert('Tên tài khoản đã tồn tại!');
-							window.location.href = "./index.php?status=login";
+							window.location.href = "./index.php?status=register";
 						}
 					}
 				}
@@ -274,6 +323,55 @@ function userLogOut(){
 		location.href='./index.php?status=logout';
 }
 
+/*==================== SEARCH ENGINE ====================*/
+const searchInput = document.getElementById('search-input'),
+	  searchIcon = document.getElementById('search-icon'),	  
+	  searchBtn = document.getElementById('search-btn');
+
+function startDictation(){
+	if (window.hasOwnProperty('webkitSpeechRecognition')) {
+		var recognition = new webkitSpeechRecognition();
+
+		recognition.continuous = false;
+		recognition.interimResults = false;
+
+		recognition.lang = 'vi-VN';
+		recognition.start();
+
+		recognition.onresult = function (e) {
+			document.getElementById('search-input').value = e.results[0][0].transcript;
+			recognition.stop();
+		};
+
+		recognition.onerror = function (e) {
+			recognition.stop();      
+		};
+	}
+}
+
+if(searchIcon){
+	searchIcon.addEventListener('click', ()=>{
+		startDictation();
+	})
+}
+
+if(searchBtn){
+	searchBtn.addEventListener('click', ()=>{
+		if(searchInput.value.length){
+			var url_string = location.href;
+			var url = new URL(url_string);
+			var quanly = url.searchParams.get("quanly");
+			if(quanly == "forum"){
+				location.href='./index.php?quanly=forum&search=' + searchInput.value;
+			}else{
+				location.href='./index.php?search=' + searchInput.value;
+			}
+		}else{
+			alert("Hãy nhập gì đó vào ô tìm kiếm!");
+		}
+	})
+}
+
 /*==================== ACCORDION TOPICS ====================*/
 const forumTopics = document.getElementsByClassName('forum__topics'),
 	  forumHeaders = document.querySelectorAll('.forum__topics_header');
@@ -293,47 +391,140 @@ forumHeaders.forEach((el) =>{
 	el.addEventListener('click', toggletopics);
 })
 
+/*==================== FORUM TOPIC REMOVE ====================*/
+const forumTopicRemovebtn = document.getElementById("topic-remove-button");
+	  forumTopicId = document.getElementById("topicID");
+
+
+function removeForumTopic(){
+	if(user_name !== ""){
+		let forumUserName = document.getElementById("userName").innerHTML;
+		if(confirm("Bạn có thực sự muốn xóa bài viết này?") == true){
+			let user_name = forumUserName;
+			let topic_id = forumTopicId.innerHTML;
+
+			var ajax = new XMLHttpRequest();
+			var method = "GET";
+			var url = "ajax/removeTopic.php?user_name="+user_name+"&topic_id="+topic_id;
+			var asynchronous = true;
+
+			ajax.open(method, url, asynchronous);
+
+			ajax.send();
+
+			ajax.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var response = this.responseText;
+					// alert(response);
+					if(response == "true"){
+						location.href='./index.php?quanly=forum';
+					}else if(response == "not own"){
+						alert('Bạn không phải là chủ sở hữu nên không thể xóa');
+						location.reload();
+					}else{
+						alert('Xảy ra lỗi!');
+					}
+				}
+			}
+		}
+	}else{
+		alert("Đăng nhập để thực hiện chức năng này!");
+	}
+}
+
+if(forumTopicRemovebtn){
+	forumTopicRemovebtn.addEventListener('click', ()=>{
+		removeForumTopic();
+	})
+}
+
+/*==================== FORUM TOPIC COMMENT REMOVE ====================*/
+function removeForumComment(commentId){
+	if(user_name !== ""){
+		let forumCommentUserName = document.getElementById("userName").innerHTML;
+		if(confirm("Bạn có thực sự muốn xóa bình luận này?") == true){
+			let user_name = forumCommentUserName;
+			let comment_id = commentId;
+
+			var ajax = new XMLHttpRequest();
+			var method = "GET";
+			var url = "ajax/removeComment.php?user_name="+user_name+"&comment_id="+comment_id;
+			var asynchronous = true;
+
+			ajax.open(method, url, asynchronous);
+
+			ajax.send();
+
+			ajax.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var response = this.responseText;
+					// alert(response);
+					if(response == "true"){
+						location.reload();
+					}else if(response == "not own"){
+						alert('Bạn không phải là chủ sở hữu nên không thể xóa');
+						location.reload();
+					}else{
+						alert('Xảy ra lỗi!');
+					}
+				}
+			}
+		}
+	}else{
+		alert("Đăng nhập để thực hiện chức năng này!");
+	}
+	
+}
 
 /*==================== SEND COMMENT ====================*/
 const commentSend = document.getElementById("detail_comment-btnsend");
 
 function sendComment(str){
-	let newstr = str.replace(/(\r\n|\n\r|\r|\n)/g, '</p> <p>');
-	let user_name = document.getElementById("userName").innerHTML;
-	let topic_id = document.getElementById("topicID").innerHTML;
+	if(user_name !== ""){
+		let newstr = str.replace(/(\r\n|\n\r|\r|\n)/g, '</p> <p>');
+		let topic_id = document.getElementById("topicID").innerHTML;
 
-	// alert(user_name);
-	// alert(topic_id);
-	// alert(newstr);
+		// alert(user_name);
+		// alert(topic_id);
+		// alert(newstr);
 
-	var ajax = new XMLHttpRequest();
-	var method = "GET";
-	var url = "ajax/addComment.php?user_name="+user_name+"&topic_id="+topic_id+"&comment="+newstr;
-	var asynchronous = true;
+		var ajax = new XMLHttpRequest();
+		var method = "GET";
+		var url = "ajax/addComment.php?user_name="+user_name+"&topic_id="+topic_id+"&comment="+newstr;
+		var asynchronous = true;
 
-	ajax.open(method, url, asynchronous);
+		ajax.open(method, url, asynchronous);
 
-	ajax.send();
+		ajax.send();
 
-	ajax.onreadystatechange = function(){
-		if(this.readyState == 4 && this.status == 200){
-			var response = this.responseText;
-			// alert(response);
-			if(response == "true"){
-				alert('Thêm câu trả lời thành công!');
-				location.reload();
-			}else{
-				alert('Xảy ra lỗi trong quá trình thêm câu trả lời!');
+		ajax.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var response = this.responseText;
+				// alert(response);
+				if(response == "true"){
+					alert('Thêm câu trả lời thành công!');
+					location.reload();
+				}else{
+					alert('Xảy ra lỗi trong quá trình thêm câu trả lời!');
+				}
 			}
 		}
+	}else{
+		alert("Đăng nhập để thực hiện chức năng này!");
 	}
+	
 }
 
 if(commentSend){
 	commentSend.addEventListener('click', ()=>{
 		var commentInput = document.getElementById("detail_comment-input").value;
 		// alert(commentInput);
-		sendComment(commentInput);
+		if(commentInput.length){
+			sendComment(commentInput);
+		}else{
+			alert("Vui lòng điền câu trả lời");
+		}
+		
 	})
 }
 
@@ -346,8 +537,12 @@ const addToggle = document.getElementById("add-topic--toggle"),
 	/*========== ADD FORM SHOW ==========*/
 if(addToggle){
 	addToggle.addEventListener('click', ()=>{
-		addmodal.classList.add("modal--active");
-		addmodalOverlay.classList.add("modal__overlay--active");
+		if(user_name !== ""){
+			addmodal.classList.add("modal--active");
+			addmodalOverlay.classList.add("modal__overlay--active");
+		}else{
+			alert("Đăng nhập để thực hiện chức năng này!");
+		}
 	});
 }
 
@@ -391,7 +586,6 @@ if(questionContentText){
 }
 
 function addQuestion(){
-	let user_name = document.getElementById("userName").innerHTML;
 	let questionTitle = document.getElementById("add_question_title").value;
 	let questionContent = document.getElementById("add_question_content").value;
 	let newContent = questionContent.replace(/(\r\n|\n\r|\r|\n\n)/g, '</p><p>');
@@ -428,6 +622,7 @@ function addQuestion(){
 
 if(btnAddQuestion){
 	btnAddQuestion.addEventListener('click', ()=>{
+		
 		if(checkAddQuestion()){
 			addQuestion();
 		}
@@ -436,57 +631,64 @@ if(btnAddQuestion){
 
 /*==================== TOGGLE LIKE COMMENT ====================*/
 function toggleCommentLike(cmtID, status){
-	let user_name = document.getElementById("userName").innerHTML;
-	let commentID = cmtID;
-	let likeStatus = status;
+	if(user_name !== ""){
+		let commentID = cmtID;
+		let likeStatus = status;
 
-	var ajax = new XMLHttpRequest();
-	var method = "GET";
-	var url = "ajax/toggleLikeComment.php?status="+likeStatus+"&user_name="+user_name+"&comment_id="+commentID;
-	var asynchronous = true;
+		var ajax = new XMLHttpRequest();
+		var method = "GET";
+		var url = "ajax/toggleLikeComment.php?status="+likeStatus+"&user_name="+user_name+"&comment_id="+commentID;
+		var asynchronous = true;
 
-	ajax.open(method, url, asynchronous);
+		ajax.open(method, url, asynchronous);
 
-	ajax.send();
+		ajax.send();
 
-	ajax.onreadystatechange = function(){
-		if(this.readyState == 4 && this.status == 200){
-			var response = this.responseText;
-			// alert(response);
-			if(response == "true"){
-				location.reload();
-			}else{
-				alert('Xảy ra lỗi!');
+		ajax.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var response = this.responseText;
+				// alert(response);
+				if(response == "true"){
+					location.reload();
+				}else{
+					alert('Xảy ra lỗi!');
+				}
 			}
 		}
+	}else{
+		alert("Đăng nhập để thực hiện chức năng này!");
 	}
+	
 }
 
 /*==================== TOGGLE LIKE TOPIC ====================*/
 function toggleTopicLike(cmtID, status){
-	let user_name = document.getElementById("userName").innerHTML;
-	let topicID = cmtID;
-	let likeStatus = status;
+	if(user_name !== ""){
+		let topicID = cmtID;
+		let likeStatus = status;
 
-	var ajax = new XMLHttpRequest();
-	var method = "GET";
-	var url = "ajax/toggleLikeTopic.php?status="+likeStatus+"&user_name="+user_name+"&topic_id="+topicID;
-	var asynchronous = true;
+		var ajax = new XMLHttpRequest();
+		var method = "GET";
+		var url = "ajax/toggleLikeTopic.php?status="+likeStatus+"&user_name="+user_name+"&topic_id="+topicID;
+		var asynchronous = true;
 
-	ajax.open(method, url, asynchronous);
+		ajax.open(method, url, asynchronous);
 
-	ajax.send();
+		ajax.send();
 
-	ajax.onreadystatechange = function(){
-		if(this.readyState == 4 && this.status == 200){
-			var response = this.responseText;
-			// alert(response);
-			if(response == "true"){
-				location.reload();
-			}else{
-				alert('Xảy ra lỗi!');
+		ajax.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var response = this.responseText;
+				// alert(response);
+				if(response == "true"){
+					location.reload();
+				}else{
+					alert('Xảy ra lỗi!');
+				}
 			}
 		}
+	}else{
+		alert("Đăng nhập để thực hiện chức năng này!");
 	}
 }
 
@@ -521,4 +723,45 @@ const gameMain = document.getElementsByClassName("main");
 function changeGameBackGround(){
 	gameMain[0].style.backgroundImage = "url('https://i.imgur.com/iu677os.jpg')";
 	gameMain[0].style.backgroundSize = "auto 100%";
+}
+
+/*==================== SCROLL INCREASE VIEWED ====================*/
+var checkIncreaseView = true;
+
+function scrollActive(){
+	var section = document.getElementsByClassName("topic__detail_content");
+	const scrollY = window.pageYOffset,
+		  sectionHeight = section[0].offsetHeight,
+		  sectionTop = section[0].offsetTop - 250;
+
+	if(scrollY > sectionTop + sectionHeight && checkIncreaseView){
+		checkIncreaseView = false;
+
+		var ajax = new XMLHttpRequest();
+		var method = "GET";
+		var url = "ajax/increaseView.php?topicID="+topicID.innerHTML;
+		var asynchronous = true;
+
+		ajax.open(method, url, asynchronous);
+
+		ajax.send();
+
+		ajax.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var response = this.responseText;
+				// alert(response);
+				if(response == "true"){
+					// location.reload();
+				}else{
+					alert('Xảy ra lỗi!');
+				}
+			}
+		}
+	}
+}
+
+function activeIncrease(){
+	const topicID = document.getElementById("topicID").innerHTML;
+
+	window.addEventListener('scroll', scrollActive);
 }

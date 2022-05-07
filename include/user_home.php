@@ -4,6 +4,10 @@
 	}else{
 		$info = '';
 	}
+
+	if(!isset($_SESSION['LVLogin'])){
+		echo '<script> window.location.href = "./index.php"; </script>';
+	}
 ?>
 <div class="home_forum">
 	<div class="grid__row">

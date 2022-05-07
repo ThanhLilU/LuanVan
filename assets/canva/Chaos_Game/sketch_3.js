@@ -9,7 +9,15 @@ let canva;
 // Inspired by Numberphile
 
 function setup(){
+	var canvaWrapper = document.getElementById('canva-wrapper');
 	canva = createCanvas(540, 540);
+	var canvaChild = document.getElementById('defaultCanvas0');
+	canvaWrapper.appendChild(canvaChild);
+
+	canva.style('left', 'calc(50% - ' + width/2 + 'px)');
+
+	canvaWrapper.style.height = height + 2 + 'px';
+	
 	ax = width / 2;
 	ay = 0;
 	bx = 0;

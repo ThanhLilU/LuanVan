@@ -18,7 +18,17 @@
 		?>
 		<div class="grid__column-6">
 			<div class="game__rank--wrapper">
-				<span class="game__subtitle"><?php echo $row_get_game_list["GameName"]; ?></span>
+				<span class="game__subtitle">
+					<?php 
+						if($row_get_game_list["GameName"] == "Snake"){
+							echo "Con rắn";
+						}else if($row_get_game_list["GameName"] == "Pi in the Sky"){
+							echo "Cơn mưa số Pi";
+						}else{
+							echo $row_get_game_list["GameName"]; 
+						}
+					?>
+					</span>
 				<div class="grid__column-12">
 					<div class="grid__row">
 						<div class="game__rank-stt">

@@ -59,7 +59,13 @@
 								$sql_get_userlike_topic = mysqli_query($con, "select count(UserID) AS count from user_like_topic where TopicID = '".$topic_id."'");
 								$sql_row_userlike_topic = mysqli_fetch_array($sql_get_userlike_topic);
 
-								$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$_SESSION['LVLogin']."'");
+								if(isset($_SESSION['LVLogin'])){
+									$user_name = $_SESSION['LVLogin'];
+								}else{
+									$user_name = '';
+								}
+
+								$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$user_name."'");
 								$sql_row_user_id = mysqli_fetch_array($sql_get_user_id);
 
 								$sql_get_user_liked = mysqli_query($con, "select * from user_like_topic where UserID='".$sql_row_user_id["UserID"]."' and TopicID='".$topic_id."'");
@@ -80,7 +86,19 @@
 									echo $sql_row_userlike_topic["count"];
 								?>
 							</i>
-							<i class="fas fa-trash-alt detail_option-icon"></i>
+							<?php
+
+								$sql_get_user_comemnt = mysqli_query($con, "SELECT * FROM topic WHERE TopicID='".$sql_row_topic["TopicID"]."' AND UserID='".$sql_row_user_id["UserID"]."'");
+								$row_get_user_comment = mysqli_fetch_array($sql_get_user_comemnt);
+
+								if($row_get_user_comment['TopicID'] || $sql_row_user_id["UserID"] == 1){
+							?>
+							<div id="topic-remove-button">
+								<i class="fas fa-trash-alt detail_option-icon"></i>
+							</div>
+							<?php
+								}
+							?>
 						</div>
 					</div>
 					<p>
@@ -124,7 +142,7 @@
 									$sql_get_userlike_comment = mysqli_query($con, "select count(UserID) AS count from user_like_comment where CommentID = '".$sql_row_comment["CommentID"]."'");
 									$sql_row_userlike_comment = mysqli_fetch_array($sql_get_userlike_comment);
 
-									$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$_SESSION['LVLogin']."'");
+									$sql_get_user_id = mysqli_query($con, "select UserID from user where UserName ='".$user_name."'");
 									$sql_row_user_id = mysqli_fetch_array($sql_get_user_id);
 
 									$sql_get_user_liked = mysqli_query($con, "select * from user_like_comment where UserID='".$sql_row_user_id["UserID"]."' and CommentID='".$sql_row_comment["CommentID"]."'");
@@ -146,7 +164,18 @@
 										echo $sql_row_userlike_comment["count"];
 									?>
 								</i>
-								<i class="fas fa-trash-alt detail_option-icon"></i>
+								<?php
+									$sql_get_user_comemnt = mysqli_query($con, "SELECT * FROM topic_comment WHERE CommentID='".$sql_row_comment["CommentID"]."' AND UserID='".$sql_row_user_id["UserID"]."'");
+									$row_get_user_comment = mysqli_fetch_array($sql_get_user_comemnt);
+
+									if($row_get_user_comment['CommentID'] || $sql_row_user_id["UserID"] == 1){
+								?>
+								<div class="comment-remove-button" onclick="removeForumComment(<?php echo $sql_row_comment["CommentID"] ?>)">
+									<i class="fas fa-trash-alt detail_option-icon"></i>
+								</div>
+								<?php
+									}
+								?>
 							</div>
 						</div>
 						<p>
@@ -169,7 +198,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

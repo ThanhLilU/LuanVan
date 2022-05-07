@@ -1,44 +1,64 @@
-let canva;
+let canvaEratos;
 
 let EreArr = [];
 let result = [];
 let i = 0;
 let j = 0;
 let n = 1;
+let num = 0;
 
 // Inspired by ThanhBeU
 
 function setup(){
-	canva = createCanvas(1050, 1050);
+	var canvaWrapper = document.getElementById('canva-wrapper');
+	canvaEratos = createCanvas(555, 555);
+
+	var canvaChild = document.getElementById('defaultCanvas0');
+	canvaWrapper.appendChild(canvaChild);
+
+	canvaEratos.style('left', 'calc(50% - ' + width/2 + 'px)');
+
+	canvaWrapper.style.height = height + 2 + 'px';
+	canvaWrapper.style.width = width + 2 + 'px';
+	canvaWrapper.style.position = 'relative';
+	canvaWrapper.style.left = 'calc(50% - ' + width/2 + 'px)';
 
 	reset();
 
 	for(let i=0; i<10; i++){
 		for(let j=0; j<10; j++){
-			fill(100);
+			fill(50);
 			square(j*55+5, i*55+5, 50);
 
-			let div = createDiv(EreArr[j + 10*i]);
-			div.style('font-size', '16px');
-			div.style('color', '#00FF00');
-			div.style('font-weight', '400');
-			if(j + 1 + 10*i<10){
-				div.position(j*55+34, i*55+30);
-			}else if(j + 1 + 10*i >= 100){
-				div.position(j*55+24, i*55+30);
-			}else{
-				div.position(j*55+30, i*55+30);
+			if(EreArr[j + 10*i] != 1){
+				let div = createDiv(EreArr[j + 10*i]);
+				div.id('num-' + num);
+				var numChild = document.getElementById('num-' + num);
+				num++;
+				canvaWrapper.appendChild(numChild);
+
+				div.style('font-size', '16px');
+				div.style('color', '#0F0');
+				div.style('font-weight', '400');
+
+				if(j + 10*i<10){
+					div.position(j*55+25, i*55+20);
+				}else if(j + 1 + 10*i >= 100){
+					div.position(j*55+18, i*55+19);
+				}else{
+					div.position(j*55+21, i*55+19);
+				}
 			}
 		}
 	}
 }
 
 function draw(){
-	frameRate(5);
+	frameRate(30);
 	if(i<10){
 		if(j<10){
 			if(EreArr[j + 10*i] % EreArr[n] == 0 && EreArr[j + 10*i] !== EreArr[n] && EreArr[j + 10*i] !== result[j + 10*i + 1]){
-				fill(255, 0, 0);
+				fill(255, 50, 50);
 				result[j + 10*i + 1] = 1;
 				square(j*55+5, i*55+5, 50);
 			}
@@ -50,8 +70,9 @@ function draw(){
 		}
 	}
 	if(i==10){
+		frameRate(1);
 		n++;
-		if(n==7){
+		if(n==10){
 			reset();
 			n=1;
 		}
@@ -70,7 +91,7 @@ function reset(){
 
 	for(let i=0; i<10; i++){
 		for(let j=0; j<10; j++){
-			fill(100);
+			fill(50);
 			square(j*55+5, i*55+5, 50);
 		}
 	}
