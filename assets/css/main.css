@@ -742,6 +742,7 @@ input[type=number]{
 	width: 100%;
 	position: relative;
 	background-color: var(--first-color-light);
+	transition: 1s;
 }
 
 .nav__menu-user:hover .nav__user-menu-list{
@@ -1970,6 +1971,43 @@ input[type=number]{
 	overflow: hidden;
 }
 
+/*==================== PAGINATION ====================*/
+.pagination-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination-wrapper div{
+	margin: 0 var(--mb-1-5);
+}
+
+.pagination--input{
+	display: block;
+	width: var(--mb-4);
+	font-size: var(--h1-font-size);
+	align-items: center;
+	text-align: center;
+	outline: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select: -moz-none;
+	 -moz-user-select: none;
+	 -o-user-select: none;
+	 -khtml-user-select: none;
+	 -webkit-user-select: none;
+	 -ms-user-select: none;
+	 user-select: none;
+}
+
+.pagination-icon{
+	font-size: var(--h2-font-size);
+	cursor: pointer;
+}
+
 
 
 
@@ -2029,3 +2067,5 @@ input[type=number]{
 		font-size: 37.5%;
 	}
 }
+
+

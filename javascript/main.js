@@ -765,3 +765,32 @@ function activeIncrease(){
 
 	window.addEventListener('scroll', scrollActive);
 }
+
+/*==================== PAGINATION ====================*/
+const pagination_increase = document.getElementsByClassName('pagination-increase'),
+	  pagination_decrease = document.getElementsByClassName('pagination-decrease'),
+	  pageNum = document.getElementsByClassName('pagination--input');
+
+function paginationIncrease(){
+	var topicID = this.parentNode.parentNode.parentNode.id;
+
+	var nexPageNum = ++pageNum[0].innerHTML;
+
+	location.href='./index.php?quanly=forum&danhmuc=' + topicID + '&page=' + nexPageNum;
+}
+
+function paginationDecrease(){
+	var topicID = this.parentNode.parentNode.parentNode.id;
+
+	var nexPageNum = --pageNum[0].innerHTML;
+
+	location.href='./index.php?quanly=forum&danhmuc=' + topicID + '&page=' + nexPageNum;
+}
+
+pagination_increase.forEach((el) =>{
+	el.addEventListener('click', paginationIncrease);
+})
+
+pagination_decrease.forEach((el) =>{
+	el.addEventListener('click', paginationDecrease);
+})

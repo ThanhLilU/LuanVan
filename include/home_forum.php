@@ -13,6 +13,12 @@
 	}else{
 		$search = "";
 	}
+
+	if(isset($_GET['page'])){
+		$page = $_GET['page'];
+	}else{
+		$page = 1;
+	}
 ?>
 
 <div class="home_forum">
@@ -37,12 +43,14 @@
 			<!--=============== TOPIC 1 ===============-->
 			<?php
 				while($sql_row_topic_category = mysqli_fetch_array($sql_get_topic_category)){
-					$sql_get_topic_list = mysqli_query($con, "select * from topic where CategoryID = '".$sql_row_topic_category["CategoryID"]."'");
+					$pageLimit = ($page - 1) * 3;
+					$sql_get_topic_list = mysqli_query($con, "select * from topic where CategoryID = '".$sql_row_topic_category["CategoryID"]."' LIMIT 3 OFFSET ".$pageLimit);
+
 					if(isset($_GET['search'])){
 						$sql_get_topic_list = mysqli_query($con, "select * from topic where CategoryID = '".$sql_row_topic_category["CategoryID"]."' and TopicName like '%".$search."%' GROUP BY TopicID");
 					}
 			?>
-			<div class="forum__topics topics__close">
+			<div class="forum__topics topics__close" id="<?php echo $sql_row_topic_category["CategoryID"] ?>">
 				<div class="forum__topics_header">
 					<span class="forum__topics_title"><?php echo $sql_row_topic_category["CategoryName"] ?></span>
 					<div class="forum__topics_more">
@@ -114,6 +122,22 @@
 					<?php
 							}
 					?>
+
+					<div class="pagination-wrapper">
+						<div class="pagination-decrease pagination-icon pagination--smaller" id="pagination-smaller">
+							<i class="fas fa-angle-left"></i>
+						</div>
+						<div class="pagination--input-wrapper">
+							<div class="pagination--input">
+								<?php
+									echo $page;
+								?>
+							</div>
+						</div>
+						<div class="pagination-increase pagination-icon pagination--bigger" id="pagination-bigger">
+							<i class="fas fa-angle-right"></i>
+						</div>
+					</div>
 				</div>
 			</div>
 			<?php
