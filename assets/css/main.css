@@ -683,6 +683,7 @@ input[type=number]{
 
 .nav__toggle-icon{
 	font-size: var(--bigger-font-size);
+	color: var(--true-grey-color);
 }
 
 	/*========== NAV MENU LIST ==========*/
@@ -1219,6 +1220,7 @@ input[type=number]{
 }
 
 .topic__detail_content p{
+	min-height: var(--mb-1);
 	margin-bottom: var(--mb-1-5);
 	padding: 0 0 0 var(--mb-5);
 }
@@ -1295,7 +1297,23 @@ input[type=number]{
 	flex-wrap: wrap;
 	font-size: var(--normal-font-size);
 	font-weight: var(--font-light-bold);
+}
+
+.quiz__warning{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: var(--normal-font-size);
+	font-weight: var(--font-light-bold);
 	margin-bottom: var(--mb-4);
+	color: var(--true-red-color);
+	align-items: center;
+}
+
+.quiz__warning span{
+	font-weight: var(--font-bold);
+	font-size: var(--h2-font-size);
+	margin: 0 var(--mb-0-5);
 }
 
 .quiz__menu-title{

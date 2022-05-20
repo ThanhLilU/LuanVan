@@ -16,7 +16,10 @@
 			<div class="quiz__menu--wrapper">
 				<span class="quiz__subtitle">Thực hành</span>
 				<span class="quiz__titlelabel">
-					30 câu, không giới hạn thời gian
+					30 câu với 10 giây mỗi câu
+				</span>
+				<span class="quiz__warning">
+					Trả lời sai <span>5</span> câu liên tiếp sẽ bị loại
 				</span>
 
 				<div class="grid__column-12">
@@ -66,6 +69,9 @@
 				<span class="quiz__subtitle">Kiểm tra</span>
 				<span class="quiz__titlelabel">
 					Thời gian 5 phút, không giới hạn câu
+				</span>
+				<span class="quiz__warning">
+					Trả lời sai <span>5</span> câu liên tiếp sẽ bị loại
 				</span>
 
 				<div class="grid__column-12">

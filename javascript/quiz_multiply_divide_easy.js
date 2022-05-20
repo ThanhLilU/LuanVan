@@ -159,12 +159,13 @@ function generate_equation(prac){
 		right.innerHTML = rightCount;
 		total.innerHTML = totalCount;
 	}else{
-		if(wrongStreak == 5){
-			alert("Bạn đã bị loại vì sai 5 lần liên tiếp!");
-			window.location = "?quanly=quiz";
-		}
 		right.innerHTML = "...";
 		total.innerHTML = totalCount;
+	}
+
+	if(wrongStreak == 5){
+		alert("Bạn đã bị loại vì sai 5 lần liên tiếp!");
+		window.location = "?quanly=quiz";
 	}
 
 	if(pracVar && totalCount == 30){

@@ -9,7 +9,7 @@
 
 	if(isset($_GET['search'])){
 		$search = str_replace('%20', ' ', $_GET['search']);
-		$sql_get_topic_category = mysqli_query($con, "select c.CategoryID, c.CategoryName from topic_category c, topic t WHERE t.TopicName like '%".$search."%' and c.CategoryID = t.CategoryID");
+		$sql_get_topic_category = mysqli_query($con, "select c.CategoryID, c.CategoryName from topic_category c, topic t WHERE t.TopicName like '%".$search."%' and c.CategoryID = t.CategoryID GROUP BY c.CategoryID");
 	}else{
 		$search = "";
 	}

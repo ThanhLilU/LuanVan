@@ -41,8 +41,8 @@ body{
 }
 
 .box{
-	width: 555px;
-	height: 300px;
+	width: 55.5rem;
+	height: 30rem;
 	background-color: var(--color-box-primary);
 	border-radius: 1rem;
 	transform: translate(0, 0);
@@ -53,15 +53,15 @@ body{
 }
 
 .box .ribbon{
-	width: 150px;
-	height: 150px;
+	width: 15rem;
+	height: 15rem;
 	overflow: hidden;
 	position: absolute;
 }
 
 .box .ribbon span{
 	position: absolute;
-	width: 225px;
+	width: 22.5rem;
 	background-color: var(--color-ribbon-bg);
 	padding: 1.6rem 0;
 	display: block;
@@ -137,11 +137,12 @@ body{
 	font-weight: 400;
 	margin-top: 1.5rem;
 	line-height: 2rem;
+	min-height: 8rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 4;
 }
 
 .button{
@@ -1697,47 +1698,47 @@ body{
 	color: white;
 	position: absolute;
 	top: 100px;
-	left: calc(50% - 24px);
+	left: calc(50% - 2.4rem);
 	z-index: 2;
 }
 
 #score-snake{
-	font-size: 75px;
+	font-size: 7.5rem;
 	font-weight: 500;
 	color: white;
 	position: absolute;
-	top: 50px;
-	left: calc(50% - 24px);
+	top: 5rem;
+	left: calc(50% - 2.4rem);
 	z-index: 2;
 }
 
 #noti{
-	font-size: 50px;
+	font-size: 5rem;
 	font-weight: 500;
 	color: white;
 	position: absolute;
-	top: 225px;
-	left: calc(50% - 285px);
+	top: 22.5rem;
+	left: calc(50% - 28.5rem);
 	z-index: 2;
 }
 
 #noti-snake{
-	font-size: 50px;
+	font-size: 5rem;
 	font-weight: 500;
 	color: white;
 	position: absolute;
-	top: 225px;
-	left: calc(50% - 267px);
+	top: 22.5rem;
+	left: calc(50% - 26.7rem);
 	z-index: 2;
 }
 
 #score-piinthesky{
-	font-size: 50px;
+	font-size: 5rem;
 	font-weight: 500;
 	color: white;
 	position: absolute;
-	top: 100px;
-	left: calc(50% - 250px);
+	top: 10rem;
+	left: calc(50% - 25rem);
 	z-index: 2;
 	width: 500px;
 	word-wrap: normal;

@@ -77,9 +77,9 @@ function generate_equation(prac){
 		timeOut = setTimeout(generate_equation, 10000, pracVar);
 		if(!pracVar){
 			resetTimer = false;
-			document.getElementById("timer-bar").style.setProperty("--duration", 300);
+			document.getElementById("timer-bar").style.setProperty("--duration", 30);
 			reset_timerBar();
-			timeOut = setTimeout(endUp, 300000);
+			timeOut = setTimeout(endUp, 30000);
 		}
 	}
 
